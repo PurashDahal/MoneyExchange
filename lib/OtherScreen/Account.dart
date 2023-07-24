@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moneyexchanger/Homepage/edit.dart';
 import 'package:moneyexchanger/Homepage/home.dart';
@@ -16,7 +17,7 @@ class MyAccount extends StatefulWidget {
 
 class _MyAccountState extends State<MyAccount> {
   File? img;
-
+  final _formKey = GlobalKey<FormState>();
   Future<void> saveImagePath(String imagePath) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('imagePath', imagePath);
@@ -50,6 +51,11 @@ class _MyAccountState extends State<MyAccount> {
       }
     });
   }
+
+  var updateName = TextEditingController();
+  var updateNumber = TextEditingController();
+  var updateAddress = TextEditingController();
+  var value1;
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +130,10 @@ class _MyAccountState extends State<MyAccount> {
                                   child: ElevatedButton(
                                     onPressed: () {
                                       pickImage(ImageSource.camera);
-                                      Navigator.pop(context);
+                                      Navigator.pushReplacement(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return MyAccount();
+                                      }));
                                     },
                                     child: Text("Take a photo"),
                                   ),
@@ -173,15 +182,63 @@ class _MyAccountState extends State<MyAccount> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Icon(Icons.person, color: Colors.blueGrey),
+                              const Icon(Icons.person, color: Colors.blueGrey),
                               SizedBox(width: 10),
-                              InkWell(
-                                onTap: () {},
-                                child: Text(
-                                  "${Cred.fullName}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 24,
+                              Expanded(
+                                child: InkWell(
+                                  onTap: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        updateName.text = Cred.fullName;
+
+                                        return AlertDialog(
+                                          actions: [
+                                            ElevatedButton(
+                                              onPressed: () async {
+                                                if (_formKey.currentState!
+                                                    .validate()) {
+                                                  Cred.fullName =
+                                                      updateName.text;
+                                                  SharedPreferences sc1 =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  sc1.setString("KEYVALUE",
+                                                      Cred.fullName);
+                                                  Navigator.pop(context);
+                                                }
+                                              },
+                                              child: Text("Ok"),
+                                            ),
+                                          ],
+                                          title: Center(child: Text("Edit")),
+                                          content: Form(
+                                            key:
+                                                _formKey, // Create a GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+                                            child: TextFormField(
+                                              maxLength: 20,
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return "Required";
+                                                }
+                                                return null;
+                                              },
+                                              controller: updateName,
+                                              decoration: const InputDecoration(
+                                                  labelText: "Name"),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                  child: Text(
+                                    "${Cred.fullName}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 24,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -202,11 +259,16 @@ class _MyAccountState extends State<MyAccount> {
                               Icon(Icons.phone, color: Colors.green),
                               SizedBox(width: 10),
                               Expanded(
-                                child: Text(
-                                  "${Cred.userName}",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 24,
+                                child: InkWell(
+                                  onTap: () {
+                                    print("object");
+                                  },
+                                  child: Text(
+                                    "${Cred.userName}",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 24,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -241,29 +303,6 @@ class _MyAccountState extends State<MyAccount> {
                     const SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        SizedBox(
-                          height: 50,
-                          width: 130,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return myProfileScreen();
-                              }));
-                            },
-                            child: Text(
-                              "Edit",
-                              style: TextStyle(
-                                  fontSize: 19, fontWeight: FontWeight.bold),
-                            ),
-                            style: ElevatedButton.styleFrom(),
-                          ),
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),
