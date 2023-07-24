@@ -379,7 +379,7 @@
             "outputFile": "com.example.moneyexchanger.app-merged_res-22:/values-night-v8_values-night-v8.arsc.flat",
             "map": [
                 {
-                    "source": "E:\\newME\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "E:\\projects\\MoneyExchange\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",
@@ -1252,25 +1252,6 @@
                     }
                 },
                 {
-                    "source": "E:\\newME\\android\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3,14",
-                        "startColumns": "4,4",
-                        "startOffsets": "176,832",
-                        "endLines": "7,16",
-                        "endColumns": "12,12",
-                        "endOffsets": "483,998"
-                    },
-                    "to": {
-                        "startLines": "108,112",
-                        "startColumns": "4,4",
-                        "startOffsets": "6436,6617",
-                        "endLines": "111,114",
-                        "endColumns": "12,12",
-                        "endOffsets": "6612,6781"
-                    }
-                },
-                {
                     "source": "C:\\Users\\shahb\\.gradle\\caches\\transforms-3\\25cee5f028ac2a6b79fd6278ff5b59e2\\transformed\\jetified-window-1.0.0-beta04\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,7,8,9,10,11,19,23,34,51",
@@ -1304,6 +1285,25 @@
                         "startOffsets": "5494",
                         "endColumns": "42",
                         "endOffsets": "5532"
+                    }
+                },
+                {
+                    "source": "E:\\projects\\MoneyExchange\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "3,14",
+                        "startColumns": "4,4",
+                        "startOffsets": "176,832",
+                        "endLines": "7,16",
+                        "endColumns": "12,12",
+                        "endOffsets": "483,998"
+                    },
+                    "to": {
+                        "startLines": "108,112",
+                        "startColumns": "4,4",
+                        "startOffsets": "6436,6617",
+                        "endLines": "111,114",
+                        "endColumns": "12,12",
+                        "endOffsets": "6612,6781"
                     }
                 },
                 {

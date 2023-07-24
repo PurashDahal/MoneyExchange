@@ -169,11 +169,12 @@ class _MyAccountState extends State<MyAccount> {
                       child: Card(
                         elevation: 5,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 60.0),
+                          padding: const EdgeInsets.only(left: 15.0),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Icon(Icons.person, color: Colors.blueGrey),
-                              SizedBox(width: 20),
+                              SizedBox(width: 10),
                               InkWell(
                                 onTap: () {},
                                 child: Text(
@@ -195,16 +196,18 @@ class _MyAccountState extends State<MyAccount> {
                       child: Card(
                         elevation: 5,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 50.0),
+                          padding: const EdgeInsets.only(left: 15.0),
                           child: Row(
                             children: [
                               Icon(Icons.phone, color: Colors.green),
-                              SizedBox(width: 20),
-                              Text(
-                                "${Cred.userName}",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 24,
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  "${Cred.userName}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 24,
+                                  ),
                                 ),
                               ),
                             ],
@@ -218,11 +221,11 @@ class _MyAccountState extends State<MyAccount> {
                       child: Card(
                         elevation: 5,
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 50.0),
+                          padding: const EdgeInsets.only(left: 15.0),
                           child: Row(
                             children: [
                               Icon(Icons.location_on, color: Colors.blue),
-                              SizedBox(width: 20),
+                              SizedBox(width: 10),
                               Text(
                                 "${Cred.location}",
                                 style: TextStyle(

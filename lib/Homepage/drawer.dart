@@ -52,6 +52,11 @@ class _MyDrawerState extends State<MyDrawer> {
     saveImagePath(imageTemporary.path);
   }
 
+  Future<void> clearImagePath() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('imagePath');
+  }
+
   @override
   void initState() {
     super.initState();
@@ -177,8 +182,6 @@ class _MyDrawerState extends State<MyDrawer> {
                           }
 
                           if (index == 5) {
-                            print("on");
-
                             showDialog(
                               context: context,
                               builder: (context) {
@@ -187,26 +190,31 @@ class _MyDrawerState extends State<MyDrawer> {
                                     title: Text("Are you sure?"),
                                     actions: [
                                       ElevatedButton(
-                                          onPressed: () async {
-                                            SharedPreferences sc =
-                                                await SharedPreferences
-                                                    .getInstance();
-                                            sc.setBool(
-                                                MySplashScreenState.KEY, false);
-                                            Navigator.push(
-                                              context,
+                                        onPressed: () async {
+                                          SharedPreferences sc =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          sc.setBool(
+                                              MySplashScreenState.KEY, false);
+                                          clearImagePath(); // Clear the image path from shared preference
+                                          setState(() {
+                                            img =
+                                                null; // Remove the image from the screen
+                                          });
+                                          Navigator.push(context,
                                               MaterialPageRoute(
                                                   builder: (context) {
-                                                return MyLogIn();
-                                              }),
-                                            );
-                                          },
-                                          child: Text("Yes")),
+                                            return MyLogIn();
+                                          }));
+                                        },
+                                        child: Text("Yes"),
+                                      ),
                                       ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text("No"))
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text("No"),
+                                      ),
                                     ],
                                   ),
                                 );
