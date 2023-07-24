@@ -193,24 +193,6 @@ class _MyAccountState extends State<MyAccount> {
                                         updateName.text = Cred.fullName;
 
                                         return AlertDialog(
-                                          actions: [
-                                            ElevatedButton(
-                                              onPressed: () async {
-                                                if (_formKey.currentState!
-                                                    .validate()) {
-                                                  Cred.fullName =
-                                                      updateName.text;
-                                                  SharedPreferences sc1 =
-                                                      await SharedPreferences
-                                                          .getInstance();
-                                                  sc1.setString("KEYVALUE",
-                                                      Cred.fullName);
-                                                  Navigator.pop(context);
-                                                }
-                                              },
-                                              child: Text("Ok"),
-                                            ),
-                                          ],
                                           title: Center(child: Text("Edit")),
                                           content: Form(
                                             key:
@@ -229,6 +211,24 @@ class _MyAccountState extends State<MyAccount> {
                                                   labelText: "Name"),
                                             ),
                                           ),
+                                          actions: [
+                                            ElevatedButton(
+                                              onPressed: () async {
+                                                if (_formKey.currentState!
+                                                    .validate()) {
+                                                  Cred.fullName =
+                                                      updateName.text;
+                                                  SharedPreferences sc1 =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  sc1.setString("KEYVALUE",
+                                                      Cred.fullName);
+                                                  Navigator.pop(context);
+                                                }
+                                              },
+                                              child: Text("Ok"),
+                                            ),
+                                          ],
                                         );
                                       },
                                     );
@@ -261,7 +261,51 @@ class _MyAccountState extends State<MyAccount> {
                               Expanded(
                                 child: InkWell(
                                   onTap: () {
-                                    print("object");
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        updateNumber.text = Cred.userName;
+
+                                        return AlertDialog(
+                                          title: Center(child: Text("Edit")),
+                                          content: Form(
+                                            key:
+                                                _formKey, // Create a GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+                                            child: TextFormField(
+                                              maxLength: 20,
+                                              validator: (value) {
+                                                if (value == null ||
+                                                    value.isEmpty) {
+                                                  return "Required";
+                                                }
+                                                return null;
+                                              },
+                                              controller: updateNumber,
+                                              decoration: const InputDecoration(
+                                                  labelText: "Number"),
+                                            ),
+                                          ),
+                                          actions: [
+                                            ElevatedButton(
+                                              onPressed: () async {
+                                                if (_formKey.currentState!
+                                                    .validate()) {
+                                                  Cred.userName =
+                                                      updateNumber.text;
+                                                  SharedPreferences sc2 =
+                                                      await SharedPreferences
+                                                          .getInstance();
+                                                  sc2.setString("KEYVALUE",
+                                                      Cred.userName);
+                                                  Navigator.pop(context);
+                                                }
+                                              },
+                                              child: Text("Save"),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   },
                                   child: Text(
                                     "${Cred.userName}",
