@@ -195,8 +195,7 @@ class _MyAccountState extends State<MyAccount> {
                                         return AlertDialog(
                                           title: Center(child: Text("Edit")),
                                           content: Form(
-                                            key:
-                                                _formKey, // Create a GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+                                            key: _formKey,
                                             child: TextFormField(
                                               maxLength: 20,
                                               validator: (value) {
@@ -226,7 +225,7 @@ class _MyAccountState extends State<MyAccount> {
                                                   Navigator.pop(context);
                                                 }
                                               },
-                                              child: Text("Ok"),
+                                              child: Text("Save"),
                                             ),
                                           ],
                                         );
@@ -269,8 +268,7 @@ class _MyAccountState extends State<MyAccount> {
                                         return AlertDialog(
                                           title: Center(child: Text("Edit")),
                                           content: Form(
-                                            key:
-                                                _formKey, // Create a GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+                                            key: _formKey,
                                             child: TextFormField(
                                               maxLength: 20,
                                               validator: (value) {
@@ -332,11 +330,59 @@ class _MyAccountState extends State<MyAccount> {
                             children: [
                               Icon(Icons.location_on, color: Colors.blue),
                               SizedBox(width: 10),
-                              Text(
-                                "${Cred.location}",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 24,
+                              InkWell(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      updateAddress.text = Cred.location;
+
+                                      return AlertDialog(
+                                        title: Center(child: Text("Edit")),
+                                        content: Form(
+                                          key: _formKey,
+                                          child: TextFormField(
+                                            maxLength: 20,
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return "Required";
+                                              }
+                                              return null;
+                                            },
+                                            controller: updateAddress,
+                                            decoration: const InputDecoration(
+                                                labelText: "Address"),
+                                          ),
+                                        ),
+                                        actions: [
+                                          ElevatedButton(
+                                            onPressed: () async {
+                                              if (_formKey.currentState!
+                                                  .validate()) {
+                                                Cred.location =
+                                                    updateAddress.text;
+                                                SharedPreferences sc3 =
+                                                    await SharedPreferences
+                                                        .getInstance();
+                                                sc3.setString(
+                                                    "KEYVALUE", Cred.location);
+                                                Navigator.pop(context);
+                                              }
+                                            },
+                                            child: Text("Save"),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
+                                child: Text(
+                                  "${Cred.location}",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 24,
+                                  ),
                                 ),
                               ),
                             ],
